@@ -1,0 +1,8 @@
+{
+  "dayRateStartHour": 1,
+  "dayRateEndHour": 20,
+  "minBookingMinutes": 60,
+  "maxBookingMinutes": 1440,
+  "minBookingIncrementMinutes": 15,
+  "rateUnitTime": 60
+}

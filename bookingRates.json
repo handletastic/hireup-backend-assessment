@@ -1,0 +1,36 @@
+[ {
+    "weekDay": "Sunday",
+    "dayRate": 45.91,
+    "nightRate": 45.91
+  },
+  {
+    "weekDay": "Monday",
+    "dayRate": 38.00,
+    "nightRate": 42.93
+  },
+  {
+    "weekDay": "Tuesday",
+    "dayRate": 38.00,
+    "nightRate": 42.93
+  },
+  {
+    "weekDay": "Wednesday",
+    "dayRate": 38.00,
+    "nightRate": 42.93
+  },
+  {
+    "weekDay": "Thursday",
+    "dayRate": 38.00,
+    "nightRate": 42.93
+  },
+  {
+    "weekDay": "Friday",
+    "dayRate": 38.00,
+    "nightRate": 42.93
+  },
+  {
+    "weekDay": "Saturday",
+    "dayRate": 45.91,
+    "nightRate": 45.91
+  } 
+]
