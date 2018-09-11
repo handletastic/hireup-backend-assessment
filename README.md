@@ -25,7 +25,7 @@ The application requires:
 ## To Run
 
 1. Open your terminal application.
-2. Navigate to the directory 'hireup-backend-asses'
+2. Navigate to the directory 'hireup-backend-assessment'
 3. Run the command `node bookingCostCalculator.js`
 4. Open the new file 'output.json' on a browser or a text editor to see the costs and validity flags for each booking.
 5. That's all folks!
@@ -36,7 +36,7 @@ This application was developed with the intent to simply write an output file th
 
 1. Do the steps above on the 'To Run' title
 2. Install [live-server](https://www.npmjs.com/package/live-server) node package.
-3. Navigate to the directory 'hireup-backend-asses'
+3. Navigate to the directory 'hireup-backend-assessment'
 4. Run the command `live-server` from your terminal (this should automatically open the file 'index.html' on your browser)
 5. You can now view it from your browser as if the file was being requested from a server
 
