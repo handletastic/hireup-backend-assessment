@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="chr=chrome">
+  <title>Booking Cost Calculator</title>
+</head>
+<body style="font-family: Helvetica, Arial, sans-serif">
+  <ul id="bookings"></ul>
+<script>
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      var response = xhttp.responseText;
+      var response = JSON.parse(xhttp.responseText);
+
+      var output = '';
+      output += '<ol>';
+      response.forEach(booking => {
+        output += '<li><strong>BOOKING ID:</strong>' + booking.id;
+        output += '<ul>';
+          output += '<li><strong>FROM:</strong> ' + booking.from + '</li>';
+          output += '<li><strong>TO:</strong> ' + booking.to + '</li>';
+          output += '<li><strong>VALID?:</strong> ' + booking.isValid + '</li>';
+          output += '<li><strong>COST:</strong> $' + booking.total + '</li>';
+        output += '</ul>';
+      });
+      output += '</ol>';
+        document.getElementById('bookings').innerHTML = output;
+    };
+  };
+  xhttp.open("GET", "output.json", true);
+  xhttp.send();
+</script>
+</body>
+</html>
+
