@@ -6,7 +6,7 @@ var fs = require('fs');
 // check there is an input file, throw error if not
 if (!fs.existsSync(INPUT_FILEPATH) && !fs.existsSync('bookingRules.json') && !fs.existsSync('bookingRates.json')) {
   throw new Error("MISSING FILE!");
-} else { }
+} else {}
 // load booking data
 var bookingRules = JSON.parse(fs.readFileSync('bookingRules.json', 'utf8'));
 var bookingRates = JSON.parse(fs.readFileSync('bookingRates.json', 'utf8'));
@@ -45,8 +45,8 @@ bookingInput.forEach(booking => {
     startHour = bookingStart.getHours();
     endHour = bookingEnd.getHours();
     // check which rates to apply
-    if (Math.min(startDay, endDay) <= DAY_RATE_START_HOUR ||
-      Math.max(startHour, endHour) >= DAY_RATE_END_HOUR) {
+    if (Math.min(startDay, endDay) >= DAY_RATE_START_HOUR ||
+      Math.max(startHour, endHour) <= DAY_RATE_END_HOUR) {
       rate = Math.max(bookingRates[startDay].nightRate, bookingRates[endDay].nightRate);
     } else {
       rate = Math.max(bookingRates[startDay].dayRate, bookingRates[endDay].dayRate);
@@ -65,7 +65,7 @@ bookingInput.forEach(booking => {
     total: cost
   });
   // uncomment the following line if you need to debug any booking variable
-  // bookingVarsToConsole(isValid, startDay, endDay, startHour, endHour, duration, rate, cost); 
+  bookingVarsToConsole(isValid, startDay, endDay, startHour, endHour, duration, rate, cost); 
 });
 // data prep and 'prettifying' for readability and then writing onto the output file
 fs.writeFileSync(OUTPUT_FILEPATH, JSON.stringify(bookingOutput, null, 2));
