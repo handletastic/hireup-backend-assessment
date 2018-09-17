@@ -26,11 +26,12 @@ var bookingOutput = [];
 // cycle through each booking
 bookingInput.forEach(booking => {
   // booking variables
-  let isValid, rate, cost, duration, startDay, endDay, startHour, endHour;
-  let bookingStart = new Date(booking.to);
-  let bookingEnd = new Date(booking.from);
+  let id, isValid, rate, cost, duration, startDay, endDay, startHour, endHour;
+  id = booking.id;
+  let bookingStart = new Date(booking.from);
+  let bookingEnd = new Date(booking.to);
   // calculate the duration of the booking
-  duration = parseInt(((bookingStart - bookingEnd) / MLS_TO_SEC) / SEC_TO_MIN);
+  duration = parseInt(((bookingEnd - bookingStart) / MLS_TO_SEC) / SEC_TO_MIN);
   // check if duration of booking fits within the minimum and maximum values
   if (duration >= MIN_BOOKING_MINUTES && duration <= MAX_BOOKING_MINUTES) {
     isValid = true;
@@ -45,8 +46,8 @@ bookingInput.forEach(booking => {
     startHour = bookingStart.getHours();
     endHour = bookingEnd.getHours();
     // check which rates to apply
-    if (Math.min(startDay, endDay) >= DAY_RATE_START_HOUR ||
-      Math.max(startHour, endHour) <= DAY_RATE_END_HOUR) {
+    if (Math.min(startHour, endHour) <= DAY_RATE_START_HOUR ||
+      Math.max(startHour, endHour) >= DAY_RATE_END_HOUR) {
       rate = Math.max(bookingRates[startDay].nightRate, bookingRates[endDay].nightRate);
     } else {
       rate = Math.max(bookingRates[startDay].dayRate, bookingRates[endDay].dayRate);
@@ -65,15 +66,16 @@ bookingInput.forEach(booking => {
     total: cost
   });
   // uncomment the following line if you need to debug any booking variable
-  bookingVarsToConsole(isValid, startDay, endDay, startHour, endHour, duration, rate, cost); 
+  bookingVarsToConsole(id, isValid, startDay, endDay, startHour, endHour, duration, rate, cost);
 });
 // data prep and 'prettifying' for readability and then writing onto the output file
 fs.writeFileSync(OUTPUT_FILEPATH, JSON.stringify(bookingOutput, null, 2));
 
 // print all the important variables of the booking to the console (debugging purposes)
-function bookingVarsToConsole(_isValid, _startDay, _endDay, _startHour, _endHour, _duration, _rate, _cost) {
+function bookingVarsToConsole(_id, _isValid, _startDay, _endDay, _startHour, _endHour, _duration, _rate, _cost) {
   console.log("");
   console.log("* BOOKING SUMMARY *");
+  console.log("Booking ID:", _id);
   console.log("Booking Validity:", _isValid);
   console.log("Booking Start (Week Day):", _startDay);
   console.log("Booking End (Week Day):", _endDay);
