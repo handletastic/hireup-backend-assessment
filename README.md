@@ -1,6 +1,6 @@
 # Hugo Santos' HireUp Backend Assessment Solution
 
-You can see this assessment over at [HireUp Backend Asessment](https://github.com/hireupau/backend-assessment)
+This repo is my submission to the [Backend Assessment](https://github.com/hireupau/backend-assessment) by [HireUp](https://hireup.com.au).
 
 ## Overview
 
