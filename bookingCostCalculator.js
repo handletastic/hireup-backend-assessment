@@ -5,11 +5,9 @@ const BOOKINGRULES_FILEPATH = "bookingRules.json";
 const BOOKINGRATES_FILEPATH = "bookingRates.json";
 // load filesystem module
 var fs = require('fs');
-// check and load configuration files
-checkConfigFilesExist(INPUT_FILEPATH, BOOKINGRULES_FILEPATH, BOOKINGRATES_FILEPATH);
-var bookingInput = loadConfigFile(INPUT_FILEPATH);
-var bookingRules = loadConfigFile(BOOKINGRULES_FILEPATH);
-var bookingRates = loadConfigFile(BOOKINGRATES_FILEPATH);
+var bookingInput = checkAndLoadConfigFile(INPUT_FILEPATH);
+var bookingRules = checkAndLoadConfigFile(BOOKINGRULES_FILEPATH);
+var bookingRates = checkAndLoadConfigFile(BOOKINGRATES_FILEPATH);
 // booking rules consts
 const DAY_RATE_START_HOUR = bookingRules.dayRateStartHour;
 const DAY_RATE_END_HOUR = bookingRules.dayRateEndHour;
@@ -49,25 +47,22 @@ createFile(OUTPUT_FILEPATH, bookingOutput);
 // ###################
 // FUNCTION DEFINITONS
 // ###################
-// check if all necessary config files exist
-function checkConfigFilesExist(_inputFilePath, _bookingRulesFilePath, _bookingRatesFilePath) {
-  checkFileExists(_inputFilePath);
-  checkFileExists(_bookingRulesFilePath);
-  checkFileExists(_bookingRatesFilePath);
-}
-// check if specific file exists
-function checkFileExists(_filePath) {
-  return fs.existsSync(_filePath) ? true : throwError("MISSING FILE: ", _filePath);
-}
 // custom error throwing message
 function throwError(_message, _variable) {
   // _message is a string while gives meaning to error in question > eg: "Missing File: "
   // _variable is the value of the variable which triggered the error > eg: myFilePathVariable
   throw new Error(_message + _variable);
 }
+// check if specific file exists
+function checkFileExists(_filePath) {
+  return fs.existsSync(_filePath) ? true : throwError("MISSING FILE: ", _filePath);
+}
 // load configuration file
 function loadConfigFile(_filePath) {
   return JSON.parse(fs.readFileSync(_filePath, 'utf8'));
+}
+function checkAndLoadConfigFile(_filePath) {
+  return checkFileExists(_filePath) ? loadConfigFile(_filePath) : throwError("MISSING CONFIG FILE: ", _filePath);
 }
 // calculate the duration of the booking in a certain time unit
 function calculateBookingDuration(_bookingStart, _bookingEnd) {
@@ -77,7 +72,7 @@ function calculateBookingDuration(_bookingStart, _bookingEnd) {
 }
 // validate if the booking fits within the minimum and maximum booking duration values
 function validateBookingDuration(_duration, _minimumBookingDuration_inMinutes, _maximumBookingDuration_inMinutes) {
-  return (duration >= _minimumBookingDuration_inMinutes && duration <= _maximumBookingDuration_inMinutes);
+  return (_duration >= _minimumBookingDuration_inMinutes && _duration <= _maximumBookingDuration_inMinutes);
 }
 function checkAndApplyBookingRate(_startDay, _startHour, _endDay, _endHour, _dayRateStartHour, _dayRateEndHour) {
   return areBookingHoursNightHours(_startHour, _endHour, _dayRateStartHour, _dayRateEndHour) ?
