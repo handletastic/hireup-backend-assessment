@@ -4,5 +4,5 @@
   "minBookingMinutes": 60,
   "maxBookingMinutes": 1440,
   "minBookingIncrementMinutes": 15,
-  "rateUnitTime": 60
+  "rateUnitTimeMinutes": 60
 }
